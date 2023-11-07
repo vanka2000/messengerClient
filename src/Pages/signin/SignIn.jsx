@@ -1,9 +1,10 @@
-import { createElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from'./signin.module.css';
 import api from '../../Service/Api';
 import {useNavigate} from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import Register from '../register/Register';
+import { useMemo } from 'react';
+
 
 
 export default function SignIn(){
@@ -13,8 +14,8 @@ export default function SignIn(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        api.socket.on('auth', (token) => {
-            if(!token) return
+        api.socket.on('auth', ({token, message, err}) => {
+            if(!token) return console.error(message, err)
             localStorage.setItem('token', token)
             navigate('/personalPage')
         })    
@@ -27,7 +28,7 @@ export default function SignIn(){
         api.signIn(data)
     }
    
-
+    
     return <div className={style.signin_conteiner}> 
         
         <div className={style.area} >

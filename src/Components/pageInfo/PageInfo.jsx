@@ -13,7 +13,7 @@ export default function Pageinfo(){
         {createId : 1, message : 'Hello', time: new Date()}, 
         {createId : 1, message : 'How are you?', time: new Date()}
     ])
-    
+    const users = useSelector(state => state.chat.chats)
     const [filteredUsers, setFilteredUsers] = useState(users)
 
 

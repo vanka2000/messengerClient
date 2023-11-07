@@ -3,14 +3,25 @@ import style from './modal.module.css'
 import React from 'react'
 import api from '../../Service/Api'
 import SearchingUser from './searchingUser'
+import {useDispatch} from 'react-redux'
+import { addFriends } from '../../Redux/slices/userSlice'
+
 export default function Modal({setOpen}){
 
     const [allUsers, setAllUsers] = React.useState([])
     const [arrFilteredUsers, setArrFilteredUsers] = React.useState([])
-
+    const dispatch = useDispatch()
     useEffect(() => {
         api.getUsers()
-        api.socket.on('getUsers', (arrUsers) => {setAllUsers(arrUsers)})
+        api.socket.on('getUsers', ({allUsers, message, err}) => {
+            if(err) return console.error(message, err)
+            setAllUsers(allUsers)
+        })
+        api.socket.on('addFriend', ({user, message, err}) => {
+            console.log(user, message, err);
+            if(err) return console.error(message, err)
+            dispatch(addFriends(user))
+        })
     }, [])
 
     function SearchUser(e){

@@ -27,8 +27,8 @@ class Api {
         this.socket.emit('getUsers', localStorage.getItem('token'))
     }
 
-    addFriend(body){
-        this.socket.emit('addFriend', body)
+    addFriend(user){
+        this.socket.emit('addFriend', {token : localStorage.getItem('token'), user})
     }
 
 

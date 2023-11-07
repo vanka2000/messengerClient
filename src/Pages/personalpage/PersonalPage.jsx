@@ -22,7 +22,10 @@ export default function PersonalPage(){
     useEffect(() => {
         if(!localStorage.getItem('token')) navigate('/signIn')
         api.getMe()
-        api.socket.on('getMe', user => dispatch(getUserData(user)))
+        api.socket.on('getMe', ({user, message, err}) => {
+            if(user) dispatch(getUserData(user))
+            else console.error(message,err)
+        }) 
     }, [])
 
     return <div className={style.conteiner}>

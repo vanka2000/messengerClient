@@ -2,17 +2,24 @@ import { Link, useNavigate } from "react-router-dom";
 import './register.module.css'
 import api from "../../Service/Api";
 import style from './register.module.css'
+import { useEffect } from "react";
 
 
 export default function Register(){
     
     const navigate = useNavigate()
+
+    useEffect(() => {
+        api.socket.on('createUser', (msg) => {
+            console.log(msg);   
+            navigate('/signIn')
+        })
+    }, [])
     const regData = function(event){
         event.preventDefault() //сбрасывает настройки сабмит
         const [name,email,password] = Array.from(event.target).map((item) => item.value)
         const regObjData = {name,email,password}
         api.createUser(regObjData)
-        api.socket.on('createUser', () => navigate('/signIn'))
     }
 
 
