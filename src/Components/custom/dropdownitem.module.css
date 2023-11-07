@@ -1,0 +1,21 @@
+.menu_item{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-decoration: none;
+    color: white;
+    justify-content: center;
+}
+.menu_item:hover{
+    background: #525357;
+    
+}
+.btn_delete_accaunt{
+    border-radius: 8px;
+    background: lightpink;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 100%;
+}

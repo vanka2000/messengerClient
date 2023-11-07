@@ -1,0 +1,23 @@
+.btn{
+    width: 70px;
+    height: 70px;
+    border: 2px solid gray;
+    background-repeat: no-repeat;
+    border-radius: 37px;
+    display: block;
+    background-size: contain;
+    background-position: left;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: 1s;
+    position: relative;
+    cursor: pointer;
+}
+.title_btn{
+    margin-left: 70px;
+    line-height: 100%;
+}
+
+.btn:hover{
+    width: 200px;
+}

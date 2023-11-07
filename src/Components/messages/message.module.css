@@ -1,0 +1,27 @@
+.income_block{
+    width: 300px;
+    height: auto;
+    background: #4259688e;
+    border-radius: 8px;
+    position: relative;
+    padding: 10px 15px 20px 15px;
+    margin-bottom: 15px;
+}
+.time {
+    
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+.outgoing_block{
+    float: right;
+    width: 300px;
+    height: auto;
+    background: #4259688e;
+    border-radius: 8px;
+    position: relative;
+    padding: 10px 15px 20px 15px;
+    margin-bottom: 15px;
+
+}

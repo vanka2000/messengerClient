@@ -1,0 +1,100 @@
+
+.profile_info{
+    width: 50%;
+    height: 80vh;
+    background: white;
+    border-radius: 12px;
+    opacity: 0;
+    transition: 1s;
+    position: fixed;
+    left: 0;
+    right: 0;bottom: 0;
+    top: 0;
+    margin: auto;
+    display: flex;
+}
+
+.visible{
+    opacity: 1;
+}
+
+.leftBar{
+    width: 28%;
+    border-right: 2px solid blue;
+    height: 100%;
+    border-radius:  12px 0 0 12px;
+    /* padding: 15px 10px; */
+    overflow-y: scroll;
+}
+.messenger{
+    width: 72%;
+}
+
+.messengerHeader{
+    height: 60px;
+    border-bottom: 2px solid blue;
+}
+.messengerSection{
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    position: relative;
+    /* display: flex; */
+    align-items: center;
+}
+.messengerHeader_info{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.user_conteiner{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(145, 145, 211, 0.781);
+    border-bottom: 1px solid black;
+    height: 55px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.textarea:focus{
+    outline: 0;
+}
+.textarea{
+    height: 60px;
+    width: 90%;
+    resize: none;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.226);
+    
+    
+}
+.send{
+    width: 10%;
+    background: rgba(58, 175, 196, 0.664);
+    border: none;
+    height: 60px;
+    border-radius: 0 8px 8px 0;
+    color: white;
+    cursor: pointer;
+}
+.form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+.smsblock{
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(37, 120, 230, 0.507);
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    
+}
+.name{
+
+}
