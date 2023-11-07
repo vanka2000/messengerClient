@@ -6,18 +6,6 @@ import { Incomemsg,Outgoingmsg } from '../messages/Message'
 import { useSelector } from 'react-redux'
 
 export default function Pageinfo(){
-
-    // const filterLeftBar = (searchText,users) => {
-    //     if(!searchText){
-    //         return users.name
-    //     }
-    //     return users.filter(({name}) => 
-    //         name.toLowerCase().includes(searchText.toLowerCase())
-    //     )
-    // }
-// console.log(Number.isFinite(“0”))
-    
-
     const user = useSelector(state => state.user.user)
     const [acceptUser, setAcceptUser] = useState({})
     const [inter, setInterface] = useState(false)
@@ -26,13 +14,17 @@ export default function Pageinfo(){
         {createId : 1, message : 'How are you?', time: new Date()}
     ])
     
-    const [searchTerm, setSearchTerm] = useState('')
+    const [filteredUsers, setFilteredUsers] = useState(users)
+
 
     useEffect(() => {
         setTimeout(() => setInterface(true), 1000)
     }, [])
 
-    
+    function filterUsers(e){
+        const value = e.target.value
+        setFilteredUsers(users.filter(item => item.name.toLowerCase().includes(value.toLowerCase())))
+    }
 
     const newMessage = function(event){  // функция для сбора данных из формы, для сообщения
        event.preventDefault() // чтобы при нажатии на форму не перезагружалась страница
@@ -45,9 +37,9 @@ export default function Pageinfo(){
     
     return <div className={`${styles.profile_info} ${inter ? styles.visible : ''}`}>
                 <div className={styles.leftBar}>
-                    <input onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder='Search...'/>
-                    {users.map(item => {
-                        return <div className={styles.user_conteiner} onClick={() => setAcceptUser(item)}>
+                    <input onChange={filterUsers} type="text" placeholder='Search...'/>
+                    {filteredUsers.map((item, index) => {
+                        return <div className={styles.user_conteiner} key={index} onClick={() => setAcceptUser(item)}>
                             {item.name}
                             {item.online ? <OnlineIcon/> : <OfflineIcon/>}
                         </div>
@@ -63,9 +55,9 @@ export default function Pageinfo(){
                     </div>
                     <div className={styles.messengerSection}>
                         <div className={styles.smsblock}>
-                            {messages.map(item  =>  {
-                                return   item.createId === user.ID ? <Outgoingmsg message={item.message} time={item.time}/> 
-                                    : <Incomemsg message={item.message} time={item.time}/>
+                            {messages.map((item, index)  =>  {
+                                return   item.createId === user.ID ? <Outgoingmsg key={index} message={item.message} time={item.time}/> 
+                                    : <Incomemsg key={index} message={item.message} time={item.time}/>
                             })}
                         </div>
                         <form onSubmit={newMessage} className={styles.form}>

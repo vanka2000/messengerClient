@@ -23,6 +23,14 @@ class Api {
         this.socket.emit('logout', localStorage.getItem('token'))
     }
 
+    getUsers(){
+        this.socket.emit('getUsers', localStorage.getItem('token'))
+    }
+
+    addFriend(body){
+        this.socket.emit('addFriend', body)
+    }
+
 
     // deleteUser(){
     //     return fetch(this.url + 'deleteUser', {

@@ -14,6 +14,7 @@ export default function SignIn(){
 
     useEffect(() => {
         api.socket.on('auth', (token) => {
+            if(!token) return
             localStorage.setItem('token', token)
             navigate('/personalPage')
         })    
@@ -24,7 +25,6 @@ export default function SignIn(){
         const [email,password] = Array.from(event.target).map((item) => item.value) //
         const data = {email,password} //объект с нашими инпутами,который мы отправим на сервер
         api.signIn(data)
-      
     }
    
 

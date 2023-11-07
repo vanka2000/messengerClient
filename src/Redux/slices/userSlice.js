@@ -10,10 +10,13 @@ export const userSlice = createSlice({
     reducers : {
         getUserData : (state, action) => {
             return {...state, user : action.payload}
+        },
+        addFriends : (state, action) => {
+            return {...state, user : {...state.user, friends : [...state.user.friends, action.payload]}}
         }
     }
 })
 
 
 export default userSlice.reducer
-export const {getUserData} = userSlice.actions
+export const {getUserData, addFriends} = userSlice.actions
