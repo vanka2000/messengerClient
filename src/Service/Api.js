@@ -31,6 +31,19 @@ class Api {
         this.socket.emit('addFriend', {token : localStorage.getItem('token'), user})
     }
 
+    getChats(idChats){
+        this.socket.emit('getChats', {token : localStorage.getItem('token'), idChats})
+    }
+
+    getMesseges(idChat){
+        this.socket.emit('getMessages', {token : localStorage.getItem('token'), idChat})
+    }
+
+    createMessage(idChat, message, user){
+        this.socket.emit('createMessage', {token : localStorage.getItem('token'), idChat, message, user})
+        
+    }
+
 
     // deleteUser(){
     //     return fetch(this.url + 'deleteUser', {

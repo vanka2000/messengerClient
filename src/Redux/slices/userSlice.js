@@ -9,7 +9,6 @@ export const userSlice = createSlice({
     initialState,
     reducers : {
         getUserData : (state, action) => {
-            console.log(action.payload);
             return {...state, user : action.payload}
         },
         addFriends : (state, action) => {
