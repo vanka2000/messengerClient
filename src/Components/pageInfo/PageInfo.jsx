@@ -39,10 +39,10 @@ export default function Pageinfo(){
     //     const value = e.target.value
     //     setFilteredUsers(users.filter(item => item.name.toLowerCase().includes(value.toLowerCase())))
     // }
-
     function activeChat(member, chat){
         // console.log(member);
         api.getMesseges(chat._id)
+        // console.log(member, chat);
         setAcceptUser({chat, member})
     }
 
@@ -51,9 +51,7 @@ export default function Pageinfo(){
         const form = event.target
         const {message} = form.elements
         const date = new Date()
-        // dispatch(createMessages({time : date, message : message.value}) )
-        console.log(acceptUser, message.value, user);
-        // api.addMessage({message : message.value, user, idChat : acceptUser._id})
+        api.addMessage({message : message.value, user, idChat : acceptUser.chat._id})
         form.reset()
     }
     
@@ -61,6 +59,7 @@ export default function Pageinfo(){
                 <div className={styles.leftBar}>
                     <input /*onChange={filterUsers}*/ type="text" placeholder='Search...'/>
                     {chats.map((item, index) => {
+                        if(!item) return
                         const member = item.members.filter(item => item.name !== user.name)[0]
                         return <div className={styles.user_conteiner} key={index} onClick={() => activeChat(member, item)}>
                             {member.name}
@@ -79,8 +78,8 @@ export default function Pageinfo(){
                     <div className={styles.messengerSection}>
                         <div className={styles.smsblock}>
                             {initialMessages.map((item, index)  =>  {
-                                return   item.createId === user.ID ? <Outgoingmsg key={index} message={item.message} time={item.time}/> 
-                                    : <Incomemsg key={index} message={item.message} time={item.time}/>
+                                return   item.user.email === user.email ? <Outgoingmsg key={index} message={item.message} time={new Date()}/> 
+                                    : <Incomemsg key={index} message={item.message} time={new Date()}/>
                             })}
                         </div>
                         <form onSubmit={newMessage} className={styles.form}>

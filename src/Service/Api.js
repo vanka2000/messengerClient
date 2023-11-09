@@ -44,6 +44,10 @@ class Api {
         
     }
 
+    addMessage({message, user, idChat}){
+        this.socket.emit('addMessage', {token : localStorage.getItem('token'), message, user, idChat})
+    }
+
 
     // deleteUser(){
     //     return fetch(this.url + 'deleteUser', {

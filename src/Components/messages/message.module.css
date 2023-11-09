@@ -1,11 +1,15 @@
 .income_block{
+    display: flex;
+    justify-content: flex-start;
+}   
+
+.income{
     width: 300px;
-    height: auto;
     background: #4259688e;
     border-radius: 8px;
-    position: relative;
     padding: 10px 15px 20px 15px;
-    margin-bottom: 15px;
+    height: auto;
+    position: relative;
 }
 .time {
     
@@ -14,14 +18,16 @@
     bottom: 0;
     right: 10px;
 }
-.outgoing_block{
-    float: right;
+.outgoing{
     width: 300px;
     height: auto;
     background: #4259688e;
     border-radius: 8px;
-    position: relative;
     padding: 10px 15px 20px 15px;
-    margin-bottom: 15px;
+    position: relative;
+}
+.outgoing_block{
+    display: flex;
+    justify-content: flex-end;
 
 }
