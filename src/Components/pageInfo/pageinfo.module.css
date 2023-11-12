@@ -34,14 +34,7 @@
     height: 60px;
     border-bottom: 2px solid blue;
 }
-.messengerSection{
-    width: 100%;
-    height: calc(100% - 60px);
-    overflow-y: scroll;
-    position: relative;
-    /* display: flex; */
-    align-items: center;
-}
+
 .messengerHeader_info{
     display: flex;
     align-items: center;
@@ -61,43 +54,9 @@
 .textarea:focus{
     outline: 0;
 }
-.textarea{
-    height: 60px;
-    width: 90%;
-    resize: none;
-    bottom: 0;
-    background: rgba(128, 128, 128, 0.226);
-    
-    
-}
-.send{
-    width: 10%;
-    background: rgba(58, 175, 196, 0.664);
-    border: none;
-    height: 60px;
-    border-radius: 0 8px 8px 0;
-    color: white;
-    cursor: pointer;
-}
-.form{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    bottom: 0;
-    position: absolute;
-}
-.smsblock{
-    width: 100%;
-    height: calc(100% - 60px);
-    background: rgba(37, 120, 230, 0.507);
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    
-}
+
+
+
 .name{
 
 }

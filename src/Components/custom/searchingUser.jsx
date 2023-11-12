@@ -1,6 +1,7 @@
 import style from './modal.module.css'
 import api from '../../Service/Api'
 
+
 export default function SearchingUser({item}){
     
     function addFriend(){

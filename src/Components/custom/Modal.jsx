@@ -3,10 +3,13 @@ import style from './modal.module.css'
 import React from 'react'
 import api from '../../Service/Api'
 import SearchingUser from './searchingUser'
+import { useSelector } from 'react-redux'
+
 
 
 export default function Modal({setOpen}){
 
+    const user = useSelector(state => state.user.user)
     const [allUsers, setAllUsers] = React.useState([])
     const [arrFilteredUsers, setArrFilteredUsers] = React.useState([])
     useEffect(() => {
@@ -15,10 +18,7 @@ export default function Modal({setOpen}){
             if(err) return console.error(message, err)
             setAllUsers(allUsers)
         })
-        api.socket.on('addFriend', ({chat, message, err}) => {
-            if(!chat) return console.error(message, err)
-            console.log(chat)
-        })
+      
     }, [])
 
     function SearchUser(e){
@@ -26,7 +26,8 @@ export default function Modal({setOpen}){
         const {search} = e.target.elements
         const str = search.value
         if(str === '') return
-        setArrFilteredUsers(allUsers.filter(item => item.name.toLowerCase().includes(str.toLowerCase())))
+        setArrFilteredUsers(allUsers.filter(item => item.name.toLowerCase() !== user.name.toLowerCase() 
+            && item.name.toLowerCase().includes(str.toLowerCase())))
     }
 
 

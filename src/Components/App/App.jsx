@@ -4,15 +4,18 @@ import Register from '../../Pages/register/Register';
 import { Routes,Route, useNavigate,} from 'react-router-dom';   //импорт роутинга для авторизации
 import PersonalPage from '../../Pages/personalpage/PersonalPage';
 import { useEffect } from 'react';
-import { useSelector } from "react-redux"
+
 
 function App() {
-
     const navigate = useNavigate()
     useEffect(() => {
-        if(localStorage.getItem('token')) navigate('/personalPage')
-        else navigate('/signIn' )
-    }, [])
+        if(localStorage.getItem('token')) {
+            navigate('/personalPage')
+        }
+        else {
+            navigate('/signIn')
+        }
+    }, [navigate])
     
     return <div>
         <header className={styles.header}></header>

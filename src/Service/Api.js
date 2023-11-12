@@ -5,6 +5,7 @@ class Api {
     constructor(){
         this.url = 'http://localhost:3000';
         this.socket = io(this.url)
+        this.socket.connect()
     }
 
     getMe(){
@@ -37,11 +38,6 @@ class Api {
 
     getMesseges(idChat){
         this.socket.emit('getMessages', {token : localStorage.getItem('token'), idChat})
-    }
-
-    createMessage(idChat, message, user){
-        this.socket.emit('createMessage', {token : localStorage.getItem('token'), idChat, message, user})
-        
     }
 
     addMessage({message, user, idChat}){
