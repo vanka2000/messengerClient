@@ -10,7 +10,7 @@ import Pageinfo from '../../Components/pageInfo/PageInfo'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../Service/Api'
-import { getUserData } from '../../Redux/slices/userSlice'
+// import { getUserData } from '../../Redux/slices/userSlice'
 import { useDispatch } from 'react-redux'
 
 
@@ -22,10 +22,6 @@ export default function PersonalPage(){
     useEffect(() => {
         if(!localStorage.getItem('token')) navigate('/signIn')
         api.getMe()
-        api.socket.on('getMe', ({user, message, err}) => {
-            if(user) dispatch(getUserData(user))
-            else console.error(message,err)
-        }) 
     }, [])
 
     return <div className={style.conteiner}>

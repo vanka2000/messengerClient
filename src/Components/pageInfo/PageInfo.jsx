@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import api from '../../Service/Api'
 import { getChats, getMessages, addChat} from '../../Redux/slices/chatSlice'
 import Chat from '../Chat/Chat'
+import {getUserData} from '../../Redux/slices/userSlice'
 
 
 export default function Pageinfo(){
@@ -19,24 +20,27 @@ export default function Pageinfo(){
 
     useEffect(() => {
         setTimeout(() => setInterface(true), 1000)
-        api.getChats(user.chats)
-        api.socket.on('getChats', ({chats, message, err}) => {
-            if(err && !chats) return console.error(message, err)
-            dispatch(getChats(chats))
-        })
-        api.socket.on('getMessages', ({messages, message, err}) => {
-            if(!messages) return console.error(message, err)
-            dispatch(getMessages(messages))
-        })
-        api.socket.on('addFriend', ({chat, message, err}) => {
-            console.log(chat);
-            if(!chat) return console.error(message, err)
-            dispatch(addChat(chat))
-        })
-        api.socket.on('deleteChat', ({id, err, message}) => {
-            if(!id) return console.error(message, err)
-            console.log(id);
-        })
+        api.socket.on('getMe', ({user, message, err}) => {
+            if(err) console.error(message,err)
+            dispatch(getUserData(user))
+            api.getChats(user.chats)
+            api.socket.on('getChats', ({chats, message, err}) => {
+                if(err && !chats) return console.error(message, err)
+                dispatch(getChats(chats))
+            })
+            api.socket.on('getMessages', ({messages, message, err}) => {
+                if(!messages) return console.error(message, err)
+                dispatch(getMessages(messages))
+            })
+            api.socket.on('addFriend', ({chat, message, err}) => {
+                if(!chat) return console.error(message, err)
+                if(chat.members.some(item => item.name === user.name)) dispatch(addChat(chat))
+            })
+            api.socket.on('deleteChat', ({id, err, message}) => {
+                if(!id) return console.error(message, err)
+                // dispatch(getChats(chats.filter(item => item._id !== id)))
+            })
+        }) 
     }, [])
 
     function activeChat(member, chat){
@@ -47,7 +51,6 @@ export default function Pageinfo(){
     function deleteChat(chat){
         api.deleteChat(chat)
     }
-
 
     return <div className={`${styles.profile_info} ${inter ? styles.visible : ''}`}>
                 <div className={styles.leftBar}>
@@ -70,7 +73,7 @@ export default function Pageinfo(){
                         
                     </div>
                     
-                        {acceptUser && <Chat acceptUser={acceptUser}/>}
+                        {acceptUser.member._id && <Chat acceptUser={acceptUser}/>}
                     
                     
                 </div>
