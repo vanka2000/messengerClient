@@ -15,7 +15,7 @@ function App() {
         else {
             navigate('/signIn')
         }
-    }, [navigate])
+    }, [])
     
     return <div>
         <header className={styles.header}></header>

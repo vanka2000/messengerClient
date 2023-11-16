@@ -30,6 +30,7 @@ export default function PersonalPage(){
 
     return <div className={style.conteiner}>
         <header>
+            
             <Navbar> 
                 <Navitem icon = {<Send/>}><Modal/></Navitem>
                 <Navitem icon = {<Account/>}><Profile/></Navitem>

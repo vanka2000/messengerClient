@@ -33,6 +33,10 @@ export default function Pageinfo(){
             if(!chat) return console.error(message, err)
             dispatch(addChat(chat))
         })
+        api.socket.on('deleteChat', ({id, err, message}) => {
+            if(!id) return console.error(message, err)
+            console.log(id);
+        })
     }, [])
 
     function activeChat(member, chat){
@@ -40,17 +44,20 @@ export default function Pageinfo(){
         setAcceptUser({chat, member})
     }
 
-    console.log(chats);
+    function deleteChat(chat){
+        api.deleteChat(chat)
+    }
+
 
     return <div className={`${styles.profile_info} ${inter ? styles.visible : ''}`}>
                 <div className={styles.leftBar}>
                     <input /*onChange={filterUsers}*/ type="text" placeholder='Search...'/>
                     {chats.map((item, index) => {
                         const member = item.members.filter(item => item.name !== user.name)[0]
-                        console.log(member);
                         return <div className={styles.user_conteiner} key={index} onClick={() => activeChat(member, item)}>
                             {member.name}
                             {item.online ? <OnlineIcon/> : <OfflineIcon/>}
+                            <button onClick={() => deleteChat(item)}>х</button>
                         </div>
                     })} 
                 </div>

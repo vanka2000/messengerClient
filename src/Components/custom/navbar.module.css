@@ -3,10 +3,21 @@
     background: #242526;
     padding: 0 1rem;
     border-bottom: 1px solid #474a4d;
+    display: flex;
+    justify-content: space-between;
 }
 .navbar_nav{
     max-width: 100%;
     height: 100%;
     display: flex;
     justify-content: flex-end;
+}
+.logo{
+    color: white;
+    /* margin: auto; */
+    left: 0;
+    right: 0;
+    font-size: 40px;
+    font-weight: bold;
+
 }

@@ -9,7 +9,8 @@ export default function Profile({active, setActive, children}){
     const navigate = useNavigate()
 
     useEffect(() => {
-        api.socket.on('logout', () => {
+        api.socket.on('logout', (msg, err, message) => {
+            if(err) console.error(err, message)
             localStorage.clear()
             navigate('/signIn')
         })
