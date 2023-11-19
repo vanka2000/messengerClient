@@ -3,7 +3,7 @@ import styles from './pageinfo.module.css'
 import { OnlineIcon, OfflineIcon} from '../custom/customIcon'
 import { useSelector, useDispatch } from 'react-redux'
 import api from '../../Service/Api'
-import { getChats, getMessages, addChat} from '../../Redux/slices/chatSlice'
+import { getChats, getMessages, addChat, filterChats} from '../../Redux/slices/chatSlice'
 import Chat from '../Chat/Chat'
 import {getUserData} from '../../Redux/slices/userSlice'
 
@@ -12,8 +12,7 @@ export default function Pageinfo(){
     const user = useSelector(state => state.user.user)
     const [acceptUser, setAcceptUser] = useState({member : {}, chat : {}})
     const [inter, setInterface] = useState(false)
-    const chats = useSelector(state => state.chat.chats)
-    // const [filteredUsers, setFilteredUsers] = useState(chats)
+    const filteredChats = useSelector(state => state.chat.filteredChats)
     
 
     const dispatch = useDispatch()
@@ -23,7 +22,7 @@ export default function Pageinfo(){
         api.socket.on('getMe', ({user, message, err}) => {
             if(err) console.error(message,err)
             dispatch(getUserData(user))
-            api.getChats(user.chats)
+            api.getChats()
             api.socket.on('getChats', ({chats, message, err}) => {
                 if(err && !chats) return console.error(message, err)
                 dispatch(getChats(chats))
@@ -34,11 +33,11 @@ export default function Pageinfo(){
             })
             api.socket.on('addFriend', ({chat, message, err}) => {
                 if(!chat) return console.error(message, err)
-                if(chat.members.some(item => item.name === user.name)) dispatch(addChat(chat))
+                dispatch(addChat(chat))
             })
             api.socket.on('deleteChat', ({id, err, message}) => {
                 if(!id) return console.error(message, err)
-                // dispatch(getChats(chats.filter(item => item._id !== id)))
+                api.getChats(user.chats)
             })
         }) 
     }, [])
@@ -48,19 +47,21 @@ export default function Pageinfo(){
         setAcceptUser({chat, member})
     }
 
-    function deleteChat(chat){
-        api.deleteChat(chat)
+    function deleteChat(item){
+        console.log(item);
+        setAcceptUser({member : {}, chat : {}})
+        api.deleteChat(item)
     }
 
     return <div className={`${styles.profile_info} ${inter ? styles.visible : ''}`}>
                 <div className={styles.leftBar}>
-                    <input /*onChange={filterUsers}*/ type="text" placeholder='Search...'/>
-                    {chats.map((item, index) => {
+                    <input onChange={(e) => dispatch(filterChats({name : e.target.value, user}))} type="text" placeholder='Search...'/>
+                    {filteredChats.map((item, index) => {
                         const member = item.members.filter(item => item.name !== user.name)[0]
-                        return <div className={styles.user_conteiner} key={index} onClick={() => activeChat(member, item)}>
+                        return <div className={styles.user_conteiner} key={index} onClick={(e) => e.target.name !== 'delChat' ? activeChat(member, item) : false}>
                             {member.name}
                             {item.online ? <OnlineIcon/> : <OfflineIcon/>}
-                            <button onClick={() => deleteChat(item)}>х</button>
+                            <button name='delChat' onClick={(e) => e.target.name === 'delChat' ? deleteChat(item) : false}>х</button>
                         </div>
                     })} 
                 </div>

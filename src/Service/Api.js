@@ -32,8 +32,8 @@ class Api {
         this.socket.emit('addFriend', {token : localStorage.getItem('token'), user})
     }
 
-    getChats(idChats){
-        this.socket.emit('getChats', {token : localStorage.getItem('token'), idChats})
+    getChats(){
+        this.socket.emit('getChats', {token : localStorage.getItem('token')})
     }
 
     getMesseges(idChat){
@@ -45,7 +45,6 @@ class Api {
     }
 
     deleteChat(chat){
-        console.log(chat);
         this.socket.emit('deleteChat', {token : localStorage.getItem('token'), chat})
     }
 
